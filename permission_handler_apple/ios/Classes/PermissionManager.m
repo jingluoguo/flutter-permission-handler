@@ -20,9 +20,14 @@
 
 + (void)checkPermissionStatus:(enum PermissionGroup)permission result:(FlutterResult)result {
     id <PermissionStrategy> permissionStrategy = [PermissionManager createPermissionStrategy:permission];
-    PermissionStatus status = [permissionStrategy checkPermissionStatus:permission];
-    
-    result([Codec encodePermissionStatus:status]);
+    if (permission == PermissionGroupLocalNetwork) {
+        [((LocalNetworkPermissionStrategy *)permissionStrategy) checkPermissionStatusWithCB:permission callBack:^(PermissionStatus status) {
+            result([Codec encodePermissionStatus:status]);
+        }];
+    } else {
+        PermissionStatus status = [permissionStrategy checkPermissionStatus:permission];
+        result([Codec encodePermissionStatus:status]);
+    }
 }
 
 + (void)checkServiceStatus:(enum PermissionGroup)permission result:(FlutterResult)result {
@@ -137,6 +142,8 @@
             return [AppTrackingTransparencyPermissionStrategy new];
         case PermissionGroupCriticalAlerts:
             return [CriticalAlertsPermissionStrategy new];
+        case PermissionGroupLocalNetwork:
+            return [LocalNetworkPermissionStrategy new];
         default:
             return [UnknownPermissionStrategy new];
     }

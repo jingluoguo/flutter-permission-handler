@@ -86,6 +86,9 @@ post_install do |installer|
 
         ## dart: PermissionGroup.criticalAlerts
         'PERMISSION_CRITICAL_ALERTS=1',
+        
+        ## dart: PermissionGroup.localNetwork
+        'PERMISSION_LOCAL_NETWORK=1',
       ]
 
     end

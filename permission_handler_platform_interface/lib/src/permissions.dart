@@ -196,6 +196,11 @@ class Permission {
   ///iOS: Nothing
   static const scheduleExactAlarm = Permission._(34);
 
+  /// Android:Nothing
+  /// iOS: LocalNetwork
+  /// iOS 14+ check local network status
+  static const localNetwork = Permission._(35);
+
   /// Returns a list of all possible [PermissionGroup] values.
   static const List<Permission> values = <Permission>[
     calendar,
@@ -232,7 +237,8 @@ class Permission {
     nearbyWifiDevices,
     videos,
     audio,
-    scheduleExactAlarm
+    scheduleExactAlarm,
+    localNetwork
   ];
 
   static const List<String> _names = <String>[
@@ -270,7 +276,8 @@ class Permission {
     'nearbyWifiDevices',
     'videos',
     'audio',
-    'scheduleExactAlarm'
+    'scheduleExactAlarm',
+    'localNetwork'
   ];
 
   @override
