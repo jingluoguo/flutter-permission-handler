@@ -30,7 +30,6 @@
         nw_browser_set_state_changed_handler(self.browser, ^(nw_browser_state_t state, nw_error_t  _Nullable error) {
             if (state == nw_browser_state_ready || state == nw_browser_state_cancelled) {
                 // ignore
-                NSLog(@"当前的状态%d", state);
             } else {
                 [self completeLocalNetworkCheck: PermissionStatusDenied];
                 NSLog(@"Local network permission error info：%@, code :%d", error.description, state);
@@ -58,6 +57,8 @@
 
 
 // Do not need to request this permission, permanently return deny
+// Generally speaking, it does not need to be triggered actively.
+// For specific punishment rules, please refer to https://developer.apple.com/forums/thread/663874
 - (void)requestPermission:(PermissionGroup)permission completionHandler:(PermissionStatusHandler)completionHandler {
     completionHandler(PermissionStatusDenied);
 }

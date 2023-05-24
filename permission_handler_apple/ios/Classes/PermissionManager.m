@@ -20,6 +20,7 @@
 
 + (void)checkPermissionStatus:(enum PermissionGroup)permission result:(FlutterResult)result {
     id <PermissionStrategy> permissionStrategy = [PermissionManager createPermissionStrategy:permission];
+    // Special handling of local network requests
     if (permission == PermissionGroupLocalNetwork) {
         [((LocalNetworkPermissionStrategy *)permissionStrategy) checkPermissionStatusWithCB:permission callBack:^(PermissionStatus status) {
             result([Codec encodePermissionStatus:status]);
